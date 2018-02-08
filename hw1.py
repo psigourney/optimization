@@ -159,7 +159,8 @@ array2 = []
 for i in N:
 	newArray = []
 	for j in N:
-		newArray.append(h.addVar(vtype=GRB.BINARY))
+		name1 = "constr_" + str(i) + "_" + str(j)
+		newArray.append(h.addVar(vtype=GRB.BINARY, name=name1))
 	array2.append(newArray)
 	
 print("len(array2) = ", len(array2))
@@ -173,4 +174,12 @@ for i in N:
 	h.addConstr(quicksum(array2[i][j] for j in N) == 1, "constr_j")
 
 h.optimize()
+
+for x in N:
+	print array2[0][x]
+
+for x in N:
+        print array2[1][x]
+
+#Appears to be working correctly... only one 1.0 value per row
 
