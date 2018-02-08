@@ -1,6 +1,7 @@
 #! /usr/bin/python
 
 from gurobipy import *
+import numpy
 
 ##########
 #Ex 1.14a
@@ -138,3 +139,38 @@ g.addConstr( (5 * x) + (1 * y) + (3 * z) <= 5000000, "constr_barrelsCrudeB")
 
 g.optimize()
 g.printAttr("x")
+
+
+
+##########
+#Ex 1.16
+##########
+
+print("\nHW1 Part 2, Problem 1\n****************************************************************")
+
+h = Model("p1")
+costs = numpy.load("cost.npy")
+
+N = range(len(costs[0]))
+
+array2 = []
+
+#Create NxN array of binary variables
+for i in N:
+	newArray = []
+	for j in N:
+		newArray.append(h.addVar(vtype=GRB.BINARY))
+	array2.append(newArray)
+	
+print("len(array2) = ", len(array2))
+print("len(array2[0]) = ", len(array2[0]))
+
+h.setObjective(quicksum(quicksum(costs[i][j] * array2[i][j] for j in N) for i in N), GRB.MINIMIZE)
+
+for j in N:
+	h.addConstr(quicksum(array2[i][j] for i in N) == 1, "constr_i")
+for i in N:
+	h.addConstr(quicksum(array2[i][j] for j in N) == 1, "constr_j")
+
+h.optimize()
+
