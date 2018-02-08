@@ -143,7 +143,7 @@ g.printAttr("x")
 
 
 ##########
-#Ex 1.16
+#Ex Part 2 Problem 1
 ##########
 
 print("\nHW1 Part 2, Problem 1\n****************************************************************")
@@ -162,9 +162,6 @@ for i in N:
 		name1 = "constr_" + str(i) + "_" + str(j)
 		newArray.append(h.addVar(vtype=GRB.BINARY, name=name1))
 	array2.append(newArray)
-	
-print("len(array2) = ", len(array2))
-print("len(array2[0]) = ", len(array2[0]))
 
 h.setObjective(quicksum(quicksum(costs[i][j] * array2[i][j] for j in N) for i in N), GRB.MINIMIZE)
 
@@ -183,3 +180,48 @@ for x in N:
 
 #Appears to be working correctly... only one 1.0 value per row
 
+
+
+
+##########
+#Ex Part 2 Problem 3
+##########
+
+print("\nHW1 Part 2, Problem 3\n****************************************************************")
+
+i = Model("p3")
+
+data = [1,666,3,704,8,94,46,22356,4,78]
+print "Array: ", data
+
+#Find 5 largest values
+R = 5
+print "Find ", R, " largest values."
+
+
+N = range(len(data))
+
+indicator = []
+
+#Create NxN array of binary variables
+for j in N:
+	name1 = "constr_" + str(j)
+	indicator.append(i.addVar(vtype=GRB.BINARY, name=name1))
+
+i.setObjective(quicksum(data[x] * indicator[x] for x in N), GRB.MAXIMIZE)
+
+i.addConstr(quicksum(indicator[i] for i in N) == R, "constr_R")
+    
+for k in N:
+	i.addConstr(indicator[k] <= 1)
+	i.addConstr(indicator[k] >= 0)
+
+i.optimize()
+
+for x in N:
+	print data[x]
+
+for x in N:
+	print indicator[x]
+
+        
