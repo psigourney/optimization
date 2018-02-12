@@ -2,6 +2,7 @@
 
 from gurobipy import *
 import numpy
+import random
 
 ##########
 #Ex 1.14a
@@ -218,10 +219,113 @@ for k in N:
 
 i.optimize()
 
+print "\nTop R values: "
 for x in N:
-	print data[x]
+    if data[x] * indicator[x].x > 0:
+	    print data[x]
 
-for x in N:
-	print indicator[x]
+ 
+    
+##########
+#Ex Part 2 Problem 2
+##########
 
-        
+print("\nHW1 Part 2, Problem 2\n****************************************************************")
+
+k = Model("p2")
+amatrix = numpy.load("A.npy")
+
+m = 50 #rows   Constraints
+n = 600 #cols  Dimensions
+
+M = range(m)
+N = range(n)
+
+###########################################################
+#generate s-sparce x values, where s=7 and s=50
+xarray_7sparce = []
+xarray_50sparce = []
+
+for i in N:
+    xarray_7sparce.append(0)
+    xarray_50sparce.append(0)
+
+for i in range(7):  # 7-sparce
+    myrandindex = random.randint(0,599)
+    myrandvalue = random.randint(1,100)
+    if xarray_7sparce[myrandindex] == 0:
+        xarray_7sparce[myrandindex] = myrandvalue
+    else:
+        while xarray_7sparce[myrandindex+1] != 0 and myrandindex < 600:
+            myrandindex += 1
+        xarray_7sparce[0] = myrandvalue
+    #print "xarray_7sparce: Added ", myrandvalue, " to index ", myrandindex        
+
+for i in range(50):  #50-sparce
+    myrandindex = random.randint(0,599)
+    myrandvalue = random.randint(1,100)
+    if xarray_50sparce[myrandindex] == 0:
+        xarray_50sparce[myrandindex] = myrandvalue
+    else:
+        while xarray_50sparce[myrandindex+1] != 0 and myrandindex < 599:
+            myrandindex+= 1
+        xarray_50sparce[0] = myrandvalue
+    #print "xarray_50sparce: Added ", myrandvalue, " to index ", myrandindex  
+###########################################################
+
+#Now we have our two s-sparce x vectors...    
+#Calculate our b values....
+
+barray_7sparce = []
+
+for i in M:
+    rowsum = 0
+    for j in N:
+        rowsum += (amatrix[i][j] * xarray_7sparce[j])
+    barray_7sparce.append(rowsum)
+
+barray_50sparce = []
+
+for i in M:
+    rowsum = 0
+    for j in N:
+        rowsum += (amatrix[i][j] * xarray_50sparce[j])
+    barray_50sparce.append(rowsum)    
+
+#Create new xpos and xneg variables
+xarray = []
+xpos = []
+xneg = []
+#zarray = []
+
+for i in N:
+    name1 = "constr_xpos_" + str(i)
+    xpos.append(k.addVar(vtype=GRB.CONTINUOUS, name=name1))
+
+    name2 = "constr_xneg_" + str(i)
+    xneg.append(k.addVar(vtype=GRB.CONTINUOUS, name=name2))
+    
+    name3 = "constr_x_" + str(i)
+    xarray.append(k.addVar(vtype=GRB.CONTINUOUS, name=name3))
+
+#    name4 = "constr_z_" + str(i)
+#    zarray.append(k.addVar(vtype=GRB.BINARY, name=name4))
+    
+#M = 999999 #Very large value
+    
+k.setObjective(quicksum( xpos[i] + xneg[i] for i in N ), GRB.MINIMIZE)
+
+k.addConstr((xarray[i] == xpos[i] - xneg[i] for i in N), "constr_posneg")  # x[i] is equal to x[i]pos - x[i]neg
+
+k.addConstr(((amatrix * xarray) == barray_7sparce), "constr_ax=b")          # Ax = b
+
+
+#k.addConstr((xpos[i] >= 0 for i in N), "constr_posIsPos")
+#k.addConstr((xneg[i] >= 0 for i in N), "constr_negIsPos")
+#k.addConstr(zarray[i] >= 0 for i in n, "constr_zIs0")
+#k.addConstr(zarray[i] <= 1 for i in n, "constr_zIs1")
+            
+k.optimize()
+
+
+
