@@ -141,21 +141,28 @@ trans_cost = [[4000, 2000, 3000, 2500, 4500],
 
 var_matrix = []
 
-#n cols variables
-#m rows constraints
+#n cols variables (5 plants)
+#m rows constraints (4 warehouses)
 
 for m in range(4):
     var_row = []
     for n in range(5):
-        name1 = "constr_" + str(m) + "," + str(n)
+        name1 = "var_" + str(m) + "," + str(n)
         var_row.append(c.addVar(vtype=GRB.INTEGER, name=name1))
     var_matrix.append(var_row)
 
 
+c.setObjective(quicksum(quicksum(trans_cost[m][n] * var_matrix[m][n] for n in range(5)) for m in range(4)), GRB.MINIMIZE) 
+# ALSO TO ADD TO OBJECTIVE:
+# For all m in range(5):
+#   add fixed costs if sum(var_matrix[m][n]) for m in range(4)) > 0;
+    
 
-        
+for m in range(4): #for each warehouse
+    c.addConstr( quicksum(var_matrix[m][n] for n in range(5)) == wh_demand[m], "constr_wh_total_demand_" + str(m) ) #Sum of deliveries == warehouse demand
 
-
+for n in range(5): #for each factory
+    c.addConstr( quicksum(var_matrix[m][n] for m in range(4)) <= plnt_capacity[n], "constr_plnt_total_cap_" + str(n) ) #Sum of deliveries <= plant capacity
 
 
 
