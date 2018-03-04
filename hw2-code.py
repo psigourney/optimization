@@ -5,327 +5,165 @@ import numpy
 import random
 
 ##########
-#Ex 1.14a
+# 3) Ex 3.12
+#
+# minimize:     -2x1 - x2
+# st:           x1 - x2 <= 2
+#               x1 + x2 <= 6
+#               x1,x2 >= 0
 ##########
 
-print("\nHW1 Ex.1.14(a)\n****************************************************************")
+print("\nHW2 Ex.3.12(a)\n****************************************************************")
 
-a = Model("ex1.14a")
+a = Model("ex3.12")
 
-x = a.addVar(vtype=GRB.INTEGER, name="x")
-y = a.addVar(vtype=GRB.INTEGER, name="y")
+x1 = a.addVar(vtype=GRB.INTEGER, name="x1")
+x2 = a.addVar(vtype=GRB.INTEGER, name="x2")
 
-a.setObjective( (6 * x) + (5.4 * y), GRB.MAXIMIZE)
 
-a.addConstr( x >= 0, "constr_positiveX")
-a.addConstr( y >= 0, "constr_positiveY")
-a.addConstr( (3 * x) + (4 * y) <= 20000, "constr_machHours")
-a.addConstr( (0.3 * x) + (0.38 * y) <= 4000, "constr_cost")
+
+a.setObjective( (-2 * x1) - (x2), GRB.MINIMIZE)
+
+a.addConstr( x1 >= 0, "constr_positiveX1")
+a.addConstr( x2 >= 0, "constr_positiveX2")
+a.addConstr( x1 - x2 <= 2, "constr_1")
+a.addConstr( x1 + x2 <= 6, "constr_2")
 
 a.optimize()
 a.printAttr("x")
 
+
+
 ##########
-#Ex 1.14c
+# 4) Ex 3.17
+#
+# minimize:     2x1 + 3x2 + 3x3 + x4 - 2x5
+# st:           x1 + 3x2 + 4x4 + x5 = 2
+#               x1 + 2x2 - 3x4 + x5 = 2
+#               -x1 - 4x2 + 3x3 = 1
+#               x1,x2,x3,x4,x5 >= 0
 ##########
 
-print("\nHW1 Ex.1.14(c)\n****************************************************************")
 
-b = Model("ex1.14c")
+print("\nHW2 Ex.3.17\n****************************************************************")
 
-x = b.addVar(vtype=GRB.INTEGER, name="x")
-y = b.addVar(vtype=GRB.INTEGER, name="y")
+b = Model("ex3.17")
 
-b.setObjective( (6 * x) + (5.4 * y), GRB.MAXIMIZE)
+x1 = b.addVar(vtype=GRB.INTEGER, name="x1")
+x2 = b.addVar(vtype=GRB.INTEGER, name="x2")
+x3 = b.addVar(vtype=GRB.INTEGER, name="x3")
+x4 = b.addVar(vtype=GRB.INTEGER, name="x4")
+x5 = b.addVar(vtype=GRB.INTEGER, name="x5")
 
-b.addConstr( x >= 0, "constr_positiveX")
-b.addConstr( y >= 0, "constr_positiveY")
-b.addConstr( (3 * x) + (4 * y) <= 22000, "constr_machHours")
-b.addConstr( (0.3 * x) + (0.38 * y) <= 3600, "constr_cost")
+
+b.setObjective( (2 * x1) + (3 * x2) + (3 * x3) + (x4) - (2 * x5), GRB.MINIMIZE)
+
+b.addConstr( x1 >= 0, "constr_positiveX1")
+b.addConstr( x2 >= 0, "constr_positiveX2")
+b.addConstr( x3 >= 0, "constr_positiveX3")
+b.addConstr( x4 >= 0, "constr_positiveX4")
+b.addConstr( x5 >= 0, "constr_positiveX5")
+
+b.addConstr( (x1) + (3 * x2) + (4 * x4) + (x5) == 2, "constr_1")
+b.addConstr( (x1) + (2 * x2) - (3 * x4) + (x5) == 2, "constr_2")
+b.addConstr( (-1 * x1) - (4 * x2) + (3 * x3) == 1, "constr_3")
 
 b.optimize()
 b.printAttr("x")
 
-##########
-#Ex 1.15a
-##########
-
-print("\nHW1 Ex.1.15(a)\n****************************************************************")
-
-c = Model("ex1.15a")
-
-x = c.addVar(vtype=GRB.INTEGER, name="x")
-y = c.addVar(vtype=GRB.INTEGER, name="y")
-
-c.setObjective( (7.8 * x) + (7.1 * y), GRB.MAXIMIZE)
-
-c.addConstr( x >= 0, "constr_positiveX")
-c.addConstr( y >= 0, "constr_positiveY")
-c.addConstr( (0.25 * x) + (0.33 * y) <= 90, "constr_assemblyHours")
-c.addConstr( (0.125 * x) + (0.33 * y) <= 80, "constr_testingHours")
-
-c.optimize()
-c.printAttr("x")
-
-##########
-#Ex 1.15b(i)
-##########
-
-print("\nHW1 Ex.1.15(b.1)\n****************************************************************")
-
-d = Model("ex1.15b.1")
-
-x = d.addVar(vtype=GRB.INTEGER, name="x")
-y = d.addVar(vtype=GRB.INTEGER, name="y")
-z = d.addVar(vtype=GRB.INTEGER, name="z") #Overtime assembly
-
-d.setObjective( (7.8 * x) + (7.1 * y) - (7 * z), GRB.MAXIMIZE)
-
-d.addConstr( x >= 0, "constr_positiveX")
-d.addConstr( y >= 0, "constr_positiveY")
-d.addConstr( z >= 0, "constr_positiveZ")
-d.addConstr( (0.25 * x) + (0.33 * y) - (z) <= 90, "constr_assemblyHours")
-d.addConstr( (0.125 * x) + (0.33 * y) <= 80, "constr_testingHours")
-d.addConstr( z <= 50, "constr_maxOTHours")
-
-d.optimize()
-d.printAttr("x")
-
-##########
-#Ex 1.15b(ii)
-##########
-
-print("\nHW1 Ex.1.15(b.2)\n****************************************************************")
-
-e = Model("ex1.15b.2.1")
-
-x = e.addVar(vtype=GRB.INTEGER, name="x")
-y = e.addVar(vtype=GRB.INTEGER, name="y")
-
-e.setObjective( (7.92 * x) + (7.19 * y), GRB.MAXIMIZE)
-
-e.addConstr( x >= 0, "constr_positiveX")
-e.addConstr( y >= 0, "constr_positiveY")
-e.addConstr( (1.2 * x) + (0.9 * y) >= 300, "constr_10pctDiscount")
-e.addConstr( (0.25 * x) + (0.33 * y) <= 90, "constr_assemblyHours")
-e.addConstr( (0.125 * x) + (0.33 * y) <= 80, "constr_testingHours")
-
-e.optimize()
-
-print("\nWith 10% Discount:")
-e.printAttr("x")
-print("\n (no change from 1.15a without the discount) \n")
 
 
 
 ##########
-#Ex 1.16
+# 5) Ex 3.21
+#
 ##########
 
-print("\nHW1 Ex.1.16\n****************************************************************")
+print("\nHW2 Ex.3.21\n****************************************************************")
 
-g = Model("ex1.16")
+g = Model("ex3.21")
 
-x = g.addVar(vtype=GRB.INTEGER, name="x") #Process 1
-y = g.addVar(vtype=GRB.INTEGER, name="y") #Process 2
-z = g.addVar(vtype=GRB.INTEGER, name="z") #Process 3
+x1 = g.addVar(vtype=GRB.INTEGER, name="x1") #Process 1
+x2 = g.addVar(vtype=GRB.INTEGER, name="x2") #Process 2
+x3 = g.addVar(vtype=GRB.INTEGER, name="x3") #Process 3
 
-g.setObjective( (200 * x) + (60 * y) + (173 * z), GRB.MAXIMIZE) #Net profit for one run of each process
+g.setObjective( (200 * x1) + (60 * x2) + (173 * x3), GRB.MAXIMIZE) #Net profit for one run of each process
 
-g.addConstr( x >= 0, "constr_positiveX")
-g.addConstr( y >= 0, "constr_positiveY")
-g.addConstr( z >= 0, "constr_positiveZ")
-g.addConstr( (3 * x) + (1 * y) + (5 * z) <= 8000000, "constr_barrelsCrudeA")
-g.addConstr( (5 * x) + (1 * y) + (3 * z) <= 5000000, "constr_barrelsCrudeB")
+g.addConstr( x1 >= 0, "constr_positiveX1")
+g.addConstr( x2 >= 0, "constr_positiveX2")
+g.addConstr( x3 >= 0, "constr_positiveX3")
+g.addConstr( (3 * x1) + (1 * x2) + (5 * x3) <= 8000000, "constr_barrelsCrudeA")
+g.addConstr( (5 * x1) + (1 * x2) + (3 * x3) <= 5000000, "constr_barrelsCrudeB")
 
 g.optimize()
 g.printAttr("x")
 
 
 
+
 ##########
-#Ex Part 2 Problem 1
+# 6) Ex 7.3
+""" The Tournament Problem:  Each of n teams plays against every other team a total of k games.  Assume that every game ends in a win or loss (no ties)
+and let x(i) be the number of wins of team i.  Let X be the set of all possible outcome vectors(x(1)....x(n)), Given an arbitrary vector (x(1)...x(n)), we would like 
+to determine whether it belongs to X, that is whether it is a possible tournament outcome vector.  Provide a nework flow formulation of this problem.
+"""
+#
 ##########
 
-print("\nHW1 Part 2, Problem 1\n****************************************************************")
-
-h = Model("p1")
-costs = numpy.load("cost.npy")
-
-N = range(len(costs[0]))
-
-array2 = []
-
-#Create NxN array of binary variables
-for i in N:
-	newArray = []
-	for j in N:
-		name1 = "constr_" + str(i) + "_" + str(j)
-		newArray.append(h.addVar(vtype=GRB.BINARY, name=name1))
-	array2.append(newArray)
-
-h.setObjective(quicksum(quicksum(costs[i][j] * array2[i][j] for j in N) for i in N), GRB.MINIMIZE)
-
-for j in N:
-	h.addConstr(quicksum(array2[i][j] for i in N) == 1, "constr_i")
-for i in N:
-	h.addConstr(quicksum(array2[i][j] for j in N) == 1, "constr_j")
-
-h.optimize()
-
-for x in N:
-	print array2[0][x]
-
-for x in N:
-        print array2[1][x]
-
-#Appears to be working correctly... only one 1.0 value per row
 
 
 
 
 ##########
-#Ex Part 2 Problem 3
+# 7) Facility Location problem
+""" Company operates 5 plants that produce widgets.  It must meet the demand of 4 warehouses.
+Each plant has fixed costs for remaining open.
+There are shipping costs.
+More plants open means higher fixed costs, but lower transportation costs.
+
+Which plants should the company keep open?  
+How much should each plant produce and ship to each warehouse?
+Minimize total cost.
+
+"""
+#
 ##########
 
-print("\nHW1 Part 2, Problem 3\n****************************************************************")
+c = Model("FacLoc7")
 
-i = Model("p3")
+wh_demand = [15,18,14,20] #demand for the 4 warehouses
+plnt_capacity = [20,22,17,19,18] #production capacity for the 5 plants
+plnt_fxd_cost = [12000,15000,17000,13000,16000] #fixed costs for keeping each plant open
+trans_cost = [[4000, 2000, 3000, 2500, 4500],
+              [2500,2600,3400,3000,4000],
+              [1200,1800,2600,4100,3000],
+              [2200,2600,3100,3700,3200]]
 
-data = [1,666,3,704,8,94,46,22356,4,78]
-print "Array: ", data
+var_matrix = []
 
-#Find 5 largest values
-R = 5
-print "Find ", R, " largest values."
+#n cols variables
+#m rows constraints
 
-
-N = range(len(data))
-
-indicator = []
-
-#Create NxN array of binary variables
-for j in N:
-	name1 = "constr_" + str(j)
-	indicator.append(i.addVar(vtype=GRB.BINARY, name=name1))
-
-i.setObjective(quicksum(data[x] * indicator[x] for x in N), GRB.MAXIMIZE)
-
-i.addConstr(quicksum(indicator[i] for i in N) == R, "constr_R")
-    
-for k in N:
-	i.addConstr(indicator[k] <= 1)
-	i.addConstr(indicator[k] >= 0)
-
-i.optimize()
-
-print "\nTop R values: "
-for x in N:
-    if data[x] * indicator[x].x > 0:
-	    print data[x]
-
- 
-    
-##########
-#Ex Part 2 Problem 2
-##########
-
-print("\nHW1 Part 2, Problem 2\n****************************************************************")
-
-k = Model("p2")
-amatrix = numpy.load("A.npy")
-
-m = 50 #rows   Constraints
-n = 600 #cols  Dimensions
-
-M = range(m)
-N = range(n)
-
-###########################################################
-#generate s-sparce x values, where s=7 and s=50
-xarray_7sparce = []
-xarray_50sparce = []
-
-for i in N:
-    xarray_7sparce.append(0)
-    xarray_50sparce.append(0)
-
-for i in range(7):  # 7-sparce
-    myrandindex = random.randint(0,599)
-    myrandvalue = random.randint(1,100)
-    if xarray_7sparce[myrandindex] == 0:
-        xarray_7sparce[myrandindex] = myrandvalue
-    else:
-        while xarray_7sparce[myrandindex+1] != 0 and myrandindex < 600:
-            myrandindex += 1
-        xarray_7sparce[0] = myrandvalue
-    #print "xarray_7sparce: Added ", myrandvalue, " to index ", myrandindex        
-
-for i in range(50):  #50-sparce
-    myrandindex = random.randint(0,599)
-    myrandvalue = random.randint(1,100)
-    if xarray_50sparce[myrandindex] == 0:
-        xarray_50sparce[myrandindex] = myrandvalue
-    else:
-        while xarray_50sparce[myrandindex+1] != 0 and myrandindex < 599:
-            myrandindex+= 1
-        xarray_50sparce[0] = myrandvalue
-    #print "xarray_50sparce: Added ", myrandvalue, " to index ", myrandindex  
-###########################################################
-
-#Now we have our two s-sparce x vectors...    
-#Calculate our b values....
-
-barray_7sparce = []
-
-for i in M:
-    rowsum = 0
-    for j in N:
-        rowsum += (amatrix[i][j] * xarray_7sparce[j])
-    barray_7sparce.append(rowsum)
-
-barray_50sparce = []
-
-for i in M:
-    rowsum = 0
-    for j in N:
-        rowsum += (amatrix[i][j] * xarray_50sparce[j])
-    barray_50sparce.append(rowsum)    
-
-#Create new xpos and xneg variables
-xarray = []
-xpos = []
-xneg = []
-#zarray = []
-
-for i in N:
-    name1 = "constr_xpos_" + str(i)
-    xpos.append(k.addVar(vtype=GRB.CONTINUOUS, name=name1))
-
-    name2 = "constr_xneg_" + str(i)
-    xneg.append(k.addVar(vtype=GRB.CONTINUOUS, name=name2))
-    
-    name3 = "constr_x_" + str(i)
-    xarray.append(k.addVar(vtype=GRB.CONTINUOUS, name=name3))
-
-#    name4 = "constr_z_" + str(i)
-#    zarray.append(k.addVar(vtype=GRB.BINARY, name=name4))
-    
-#M = 999999 #Very large value
-    
-k.setObjective(quicksum( xpos[i] + xneg[i] for i in N ), GRB.MINIMIZE)
-
-k.addConstr((xarray[i] == xpos[i] - xneg[i] for i in N), "constr_posneg")  # x[i] is equal to x[i]pos - x[i]neg
-
-k.addConstr(((amatrix * xarray) == barray_7sparce), "constr_ax=b")          # Ax = b
+for m in range(4):
+    var_row = []
+    for n in range(5):
+        name1 = "constr_" + str(m) + "," + str(n)
+        var_row.append(c.addVar(vtype=GRB.INTEGER, name=name1))
+    var_matrix.append(var_row)
 
 
-#k.addConstr((xpos[i] >= 0 for i in N), "constr_posIsPos")
-#k.addConstr((xneg[i] >= 0 for i in N), "constr_negIsPos")
-#k.addConstr(zarray[i] >= 0 for i in n, "constr_zIs0")
-#k.addConstr(zarray[i] <= 1 for i in n, "constr_zIs1")
-            
-k.optimize()
+
+        
+
+
+
+
+
+
+
+
+
+
 
 
 
