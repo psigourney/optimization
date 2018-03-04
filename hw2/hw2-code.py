@@ -13,7 +13,7 @@ import random
 #               x1,x2 >= 0
 ##########
 
-print("\nHW2 Ex.3.12(a)\n****************************************************************")
+print("\nHW2 Problem 3 - Ex.3.12(a)\n****************************************************************")
 
 a = Model("ex3.12")
 
@@ -45,7 +45,7 @@ a.printAttr("x")
 ##########
 
 
-print("\nHW2 Ex.3.17\n****************************************************************")
+print("\nHW2 Problem 4 - Ex.3.17\n****************************************************************")
 
 b = Model("ex3.17")
 
@@ -79,7 +79,7 @@ b.printAttr("x")
 #
 ##########
 
-print("\nHW2 Ex.3.21\n****************************************************************")
+print("\nHW2 Problem 5 - Ex.3.21\n****************************************************************")
 
 g = Model("ex3.21")
 
@@ -110,8 +110,10 @@ to determine whether it belongs to X, that is whether it is a possible tournamen
 #
 ##########
 
+print("\nHW2 Problem 6 - Ex.7.3\n****************************************************************")
 
 
+print("TODO....\n\n")
 
 
 ##########
@@ -129,6 +131,8 @@ Minimize total cost.
 #
 ##########
 
+print("\nHW2 Problem 7\n****************************************************************")
+
 c = Model("FacLoc7")
 
 wh_demand = [15,18,14,20] #demand for the 4 warehouses
@@ -141,8 +145,8 @@ trans_cost = [[4000, 2000, 3000, 2500, 4500],
 
 var_matrix = []
 
-#n cols variables (5 plants)
-#m rows constraints (4 warehouses)
+# n cols variables (5 plants)
+# m rows constraints (4 warehouses)
 
 for m in range(4):
     var_row = []
@@ -150,12 +154,11 @@ for m in range(4):
         name1 = "var_" + str(m) + "," + str(n)
         var_row.append(c.addVar(vtype=GRB.INTEGER, name=name1))
     var_matrix.append(var_row)
+    
 
-
-c.setObjective(quicksum(quicksum(trans_cost[m][n] * var_matrix[m][n] for n in range(5)) for m in range(4)), GRB.MINIMIZE) 
-# ALSO TO ADD TO OBJECTIVE:
-# For all m in range(5):
-#   add fixed costs if sum(var_matrix[m][n]) for m in range(4)) > 0;
+#                Check each plant( Check each warehouse )
+c.setObjective(quicksum(quicksum((trans_cost[m][n] * var_matrix[m][n]) for m in range(4))  for n in range(5)), GRB.MINIMIZE) 
+print "\nTODO: add in the fixed cost somehow....\n"
     
 
 for m in range(4): #for each warehouse
@@ -164,12 +167,28 @@ for m in range(4): #for each warehouse
 for n in range(5): #for each factory
     c.addConstr( quicksum(var_matrix[m][n] for m in range(4)) <= plnt_capacity[n], "constr_plnt_total_cap_" + str(n) ) #Sum of deliveries <= plant capacity
 
+for m in range(4):
+    for n in range(5):
+        c.addConstr( var_matrix[m][n] >= 0 )
+
+c.optimize()
+c.printAttr("x")
 
 
+##########
+# 8) Large problem
+""" 
+Load data from PS2_problem_8.zip
+4860 variables.
 
 
+"""
+#
+##########
 
+print("\nHW2 Problem 8\n****************************************************************")
 
+c = Model("Large8")
 
 
 
