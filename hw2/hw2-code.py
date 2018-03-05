@@ -3,6 +3,7 @@
 from gurobipy import *
 import numpy
 import random
+import scipy
 
 ##########
 # 3) Ex 3.12
@@ -181,6 +182,9 @@ c.printAttr("x")
 Load data from PS2_problem_8.zip
 4860 variables.
 
+Minimize:  c'x
+st: Ax=b
+and lo < x < hi
 
 """
 #
@@ -188,8 +192,62 @@ Load data from PS2_problem_8.zip
 
 print("\nHW2 Problem 8\n****************************************************************")
 
-c = Model("Large8")
+d = Model("Large8")
 
+a_list = []
+b_list = []
+c_list = []
 
+lo_list = []
+hi_list = []
 
+a_file = open("A.mtx", "r")
+for line in a_file:
+    if line[0] != '%':
+        a_list.append(line.strip())
 
+b_file = open("b.mtx", "r")
+for line in b_file:
+    if line[0] != '%':
+        b_list.append(line.strip())
+
+c_file = open("c.mtx", "r")
+for line in c_file:
+    if line[0] != '%':
+        c_list.append(line.strip())
+        
+lo_file = open("lower_bd.mtx", "r")
+for line in lo_file:
+    if line[0] != '%':
+        lo_list.append(line.strip())
+
+hi_file = open("upper_bd.mtx", "r")
+for line in hi_file:
+    if line[0] != '%':
+        hi_list.append(line.strip())
+
+a_list.pop(0)
+b_list.pop(0)
+c_list.pop(0)
+lo_list.pop(0)
+hi_list.pop(0)
+
+x_list = []
+for num in range(len(c_list)):
+    name1 = "var_" + str(num)
+    x_list.append(d.addVar(vtype=GRB.CONTINUOUS, name=name1))
+
+print "First 5 of..."
+print "a_list:"    
+for num in range(5):
+    print a_list[num]
+    
+print "b_list:"    
+for num in range(5):
+    print b_list[num]
+    
+print "c_list:"    
+for num in range(2000):
+    if c_list[num] <> '0':
+        print c_list[num]
+    

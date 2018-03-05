@@ -1,0 +1,200 @@
+%%MatrixMarket matrix coordinate real general
+%-------------------------------------------------------------------------------
+% UF Sparse Matrix Collection, Tim Davis
+% http://www.cise.ufl.edu/research/sparse/matrices/LPnetlib/lp_pilot
+% name: LPnetlib/lp_pilot
+% [Netlib LP problem pilot: minimize c'*x, where Ax=b, lo<=x<=hi]
+% id: 654
+% date: 1989
+% author: M. Saunders
+% ed: D. Gay
+% fields: title name A b id aux kind date author ed notes
+% aux: c lo hi z0
+% kind: linear programming problem
+%-------------------------------------------------------------------------------
+% notes:
+% A Netlib LP problem, in lp/data.  For more information                        
+% send email to netlib@ornl.gov with the message:                               
+%                                                                               
+% 	 send index from lp                                                          
+% 	 send readme from lp/data                                                    
+% 	 send minos from lp/data                                                     
+%                                                                               
+% The following are relevant excerpts from lp/data/readme (by David M. Gay):    
+%                                                                               
+% The column and nonzero counts in the PROBLEM SUMMARY TABLE below exclude      
+% slack and surplus columns and the right-hand side vector, but include         
+% the cost row.  We have omitted other free rows and all but the first          
+% right-hand side vector, as noted below.  The byte count is for the            
+% MPS compressed file; it includes a newline character at the end of each       
+% line.  These files start with a blank initial line intended to prevent        
+% mail programs from discarding any of the data.  The BR column indicates       
+% whether a problem has bounds or ranges:  B stands for "has bounds", R         
+% for "has ranges".  The BOUND-TYPE TABLE below shows the bound types           
+% present in those problems that have bounds.                                   
+%                                                                               
+% The optimal value is from MINOS version 5.3 (of Sept. 1988)                   
+% running on a VAX with default options.                                        
+%                                                                               
+%                        PROBLEM SUMMARY TABLE                                  
+%                                                                               
+% Name       Rows   Cols   Nonzeros    Bytes  BR      Optimal Value             
+% PILOT      1442   3652    43220     278593  B    -5.5740430007E+02            
+%                                                                               
+%         BOUND-TYPE TABLE                                                      
+% PILOT      UP LO FX                                                           
+%                                                                               
+% From Michael Saunders, Systems Optimization Laboratory at Stanford University.
+% When included in Netlib: Extra bound sets omitted;                            
+% cost coefficients negated.                                                    
+%                                                                               
+% Bob Bixby reports that the CPLEX solver (running on a Sparc station)          
+% finds slightly different optimal values for some of the problems.             
+% On a MIPS processor, MINOS version 5.3 (with crash and scaling of             
+% December 1989) also finds different optimal values for some of the            
+% problems.  The following table shows the values that differ from those        
+% shown above.  (Whether CPLEX finds different values on the recently           
+% added problems remains to be seen.)                                           
+%                                                                               
+% Problem        CPLEX(Sparc)          MINOS(MIPS)                              
+% PILOT       -5.5748972928E+02    -5.5741215293E+02                            
+%                                                                               
+% Concerning PILOT87, Irv Lustig says, "PILOT87 is considered (by John          
+% Stone, at least) to be harder than PILOT because of the bad scaling in        
+% the numerics."                                                                
+%                                                                               
+% Modified on Oct. 1991 (minor cleanup): removed 8 duplicate right-hand         
+% side values for row BTRB01.                                                   
+%                                                                               
+% The following are relevant excerts from lp/data/minos (by Michael Saunders),  
+% regarding experience with MINOS 5.0 on the problems he provided:              
+%                                                                               
+%                                                      (unscaled)   (scaled)    
+% File   Name    Rows  Cols  Elems  Optimal Objective  Itns  Time  Itns  Time   
+% ---- --------  ----  ----  -----  -----------------  ----  ----  ----  ----   
+%  13. PILOT     1460  3652  43645  5.5742994E+02 MAX    ?     ?  20000* 2hrs*  
+%                                                                               
+% * Objective  is the first row of type N.  It is minimized except as shown.    
+%                                                                               
+% * Itns       is the number of iterations required to solve the problem        
+%              by the primal simplex method, as implemented in the Fortran      
+%              code MINOS 5.0 (May 1985), using default values for all          
+%              parameters.  (The initial basis is triangular.)                  
+%                                                                               
+% * Time       is the processor time required on an IBM 3081K.  The MINOS       
+%              source code was compiled with the IBM Fortran 77 compiler        
+%              VS FORTRAN, using the options NOSDUMP, NOSYM and OPT(3).         
+%                                                                               
+% * PILOT      is a linearized form of a quadratic program.  The first 45       
+%              objective elements are the optimal gradients of the quadratic    
+%              terms in the objective of the QP.  PILOT is normally solved      
+%              from an advanced basis, with scaling.  The Itns and Time shown   
+%              above are estimates.                                             
+%                                                                               
+%-------------------------------------------------------------------------------
+1441 4860 44375
+1 1 1
+2 2 1
+3 3 1
+4 4 1
+5 5 1
+6 6 1
+7 7 1
+8 8 1
+9 9 1
+10 10 1
+11 11 1
+12 12 1
+13 13 1
+14 14 1
+15 15 1
+16 16 1
+17 17 1
+18 18 1
+19 19 1
+20 20 1
+21 21 1
+22 22 1
+23 23 1
+24 24 1
+25 25 1
+26 26 1
+27 27 1
+28 28 1
+29 29 1
+30 30 1
+31 31 1
+32 32 1
+33 33 1
+34 34 1
+35 35 1
+36 36 1
+37 37 1
+38 38 1
+39 39 1
+40 40 1
+41 41 1
+42 42 1
+43 43 1
+44 44 1
+45 45 1
+46 46 1
+47 47 1
+48 48 1
+58 49 1
+59 50 1
+60 51 1
+61 52 1
+62 53 -1
+65 54 1
+66 55 1
+67 56 1
+68 57 1
+69 58 1
+70 59 1
+71 60 1
+72 61 1
+73 62 1
+74 63 1
+75 64 1
+76 65 1
+77 66 1
+78 67 1
+79 68 1
+80 69 1
+81 70 1
+83 71 1
+84 72 1
+85 73 1
+86 74 1
+87 75 1
+88 76 1
+89 77 1
+90 78 1
+91 79 1
+92 80 1
+93 81 1
+94 82 1
+95 83 1
+96 84 1
+97 85 1
+98 86 1
+99 87 1
+100 88 1
+101 89 1
+102 90 1
+103 91 1
+104 92 1
+105 93 1
+106 94 1
+107 95 1
+108 96 1
+109 97 1
+110 98 1
+111 99 1
+112 100 1
+113 101 1
+114 102 1
+115 103 1
+116 104 1
+117 105 1
