@@ -3,7 +3,7 @@
 from gurobipy import *
 import numpy
 import random
-import scipy
+from scipy.io import *
 
 ##########
 # 3) Ex 3.12
@@ -194,60 +194,43 @@ print("\nHW2 Problem 8\n********************************************************
 
 d = Model("Large8")
 
-a_list = []
-b_list = []
-c_list = []
 
-lo_list = []
-hi_list = []
+a_matrix = mmread("A.mtx")
+b_matrix = mmread("b.mtx")
+c_matrix = mmread("c.mtx")
+hi_scalar = mmread("upper_bd.mtx")
+lo_scalar = mmread("lower_bd.mtx")
 
-a_file = open("A.mtx", "r")
-for line in a_file:
-    if line[0] != '%':
-        a_list.append(line.strip())
-
-b_file = open("b.mtx", "r")
-for line in b_file:
-    if line[0] != '%':
-        b_list.append(line.strip())
-
-c_file = open("c.mtx", "r")
-for line in c_file:
-    if line[0] != '%':
-        c_list.append(line.strip())
-        
-lo_file = open("lower_bd.mtx", "r")
-for line in lo_file:
-    if line[0] != '%':
-        lo_list.append(line.strip())
-
-hi_file = open("upper_bd.mtx", "r")
-for line in hi_file:
-    if line[0] != '%':
-        hi_list.append(line.strip())
-
-a_list.pop(0)
-b_list.pop(0)
-c_list.pop(0)
-lo_list.pop(0)
-hi_list.pop(0)
+expr = LinExpr()
 
 x_list = []
-for num in range(len(c_list)):
+
+for num in range(len(c_matrix)):
     name1 = "var_" + str(num)
     x_list.append(d.addVar(vtype=GRB.CONTINUOUS, name=name1))
+"""
+for item in range(len(lo_scalar)):
+    name2 = "constr_lo_" + str(item)
+    d.addConstr( lo_scalar.tolist()[item] <= x_list[item] , name2)
 
-print "First 5 of..."
-print "a_list:"    
-for num in range(5):
-    print a_list[num]
+#d.setObjective( numpy.dot(c_matrix, x_list), GRB.MINIMIZE)
+
+"""
+
+print "a_matrix is ", type(a_matrix)
+print "b_matrix is ", type(b_matrix)
+print "c_matrix is ", type(c_matrix)
+print "hi_scalar is ", type(hi_scalar)
+print "lo_scalar is ", type(lo_scalar)
+print "x_list is ", type(x_list)
+
+obj = LinExpr()
+
+#for coeff, vari in c_matrix, x_list:
+#    obj.AddTerm(item, vari)
     
-print "b_list:"    
-for num in range(5):
-    print b_list[num]
-    
-print "c_list:"    
-for num in range(2000):
-    if c_list[num] <> '0':
-        print c_list[num]
+
+
+
+
     
