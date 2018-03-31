@@ -80,11 +80,10 @@ b.printAttr("x")
 # Minimize lamp production costs from Jan - April
 #
 # minimize: quicksum(35Xt + 5Yt + 50Zt) for t in range(4)
-# st:       Dt = Xt + Yt-1 + Zt     //Monthly Demand = Production + Last month's Storage + Lamps Purchased
-#           Yt = Xt + Yt-1 + Zt - Dt //Monthly Storage = This month's production + Last month's storage + Lamps Purchased - This month's demand               
+# st:       Dt = Xt + Yt-1 + Zt - Yt //Monthly Demand = Production + Previous Storage + Purchased - Current Storage
 #           Xt <= 160               //Monthly production limit
 #           Xt,Yt,Zt >= 0           //All positive
-#           Dt = {150,160,225,180}  //Monthly demand
+#           Dt = [150,160,225,180]  //Monthly demand
 ##########
 
 print("\nHW3 Problem 5 - Ex.5.6b\n****************************************************************")
@@ -236,7 +235,7 @@ for i in range(4):
     
 d = [150, 160, 225, 180]    #Monthly Demand
 
-g.setObjective( quicksum( (35 * x[i]) + (5 * y[i]) + (50 * z[i]) for i in range(4)), GRB.MINIMIZE )
+g.setObjective( quicksum( (35 * x[i]) + (5 * y[i]) for i in range(4)) + (50 * z[0]) + (45 * z[1]) + (50 * z[2]) + (50 * z[3]), GRB.MINIMIZE )
 
 for i in range(4):
     g.addConstr( x[i] <= 160 )
@@ -253,6 +252,54 @@ g.optimize()
 g.printAttr("x")
 
 
+""" BASE 
+    Variable            x 
+-------------------------
+   Produce_0          160 
+     Store_0           10 
+   Produce_1          160 
+     Store_1           10 
+   Produce_2          160 
+  Purchase_2           55 
+   Produce_3          160 
+  Purchase_3           20
+"""
 
 
 
+# Cost of storage in Feb is $8/unit; how does this change things?
+print("\nHW3 Problem 5 - Ex.5.6f\n****************************************************************")
+
+h = Model("ex5.6f")
+
+x = []
+y = []
+z = []
+for i in range(4):
+    name1 = "x" + str(i)    #Monthly Production
+    name1 = "Produce_" + str(i)    #Monthly Production
+    x.append(h.addVar(vtype=GRB.INTEGER, name=name1))
+
+    name2 = "Store_" + str(i)    #Monthly Storage
+    y.append(h.addVar(vtype=GRB.INTEGER, name=name2))
+
+    name3 = "Purchase_" + str(i)    #Monthly Purchase
+    z.append(h.addVar(vtype=GRB.INTEGER, name=name3))
+    
+d = [150, 160, 225, 180]    #Monthly Demand
+
+h.setObjective( quicksum( (35 * x[i]) + (5 * y[i]) + (50 * z[i]) for i in range(4)) + (3 * y[1]), GRB.MINIMIZE )
+
+for i in range(4):
+    h.addConstr( x[i] <= 160 )
+    h.addConstr( x[i] >= 0 )
+    h.addConstr( y[i] >= 0 )
+    h.addConstr( z[i] >= 0 )
+    
+    if i == 0:              #Previous month storage (y) doesn't exist.
+        h.addConstr( d[i] == x[i] + z[i] - y[i] )                  #Demand = Production + Purchase - Storage
+    else:
+        h.addConstr( d[i] == x[i] + y[i-1] + z[i] - y[i] )         #Demand = Production + Prev Storage + Purchase - Storage
+            
+h.optimize()
+h.printAttr("x")
