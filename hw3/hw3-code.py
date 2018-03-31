@@ -123,8 +123,9 @@ c.optimize()
 c.printAttr("x")
 
 
-# Run maintenance during which month?
+
 print("\nHW3 Problem 5 - Ex.5.6c\n****************************************************************")
+print("Run maintenance during which month?\n")
 
 e = Model("ex5.6c")
 
@@ -164,8 +165,9 @@ e.printAttr("x")
 
 
 
-# Company D can provide 50 lamps in Jan, Feb, or Mar for $45/each.
+
 print("\nHW3 Problem 5 - Ex.5.6d\n****************************************************************")
+print("Company D can provide 50 lamps in Jan, Feb, or Mar for $45/each.\n")
 
 f = Model("ex5.6d")
 
@@ -214,8 +216,9 @@ f.printAttr("x")
 
 
 
-# Company C will lower purchase price in Feb... what is minimum decrease to make worthwhile?
+
 print("\nHW3 Problem 5 - Ex.5.6e\n****************************************************************")
+print("Company C will lower purchase price in Feb... what is minimum decrease to make worthwhile?\n")
 
 g = Model("ex5.6e")
 
@@ -267,8 +270,9 @@ g.printAttr("x")
 
 
 
-# Cost of storage in Feb is $8/unit; how does this change things?
+
 print("\nHW3 Problem 5 - Ex.5.6f\n****************************************************************")
+print("Cost of storage in Feb is $8/unit; how does this change things?\n")
 
 h = Model("ex5.6f")
 
@@ -303,3 +307,56 @@ for i in range(4):
             
 h.optimize()
 h.printAttr("x")
+
+
+
+print("\nHW3 Problem 5 - Ex.5.6g\n****************************************************************")
+print("If Jan demand is 90 units, what are upper and lower bounds of impact on optimal cost?\n")
+
+j = Model("ex5.6g")
+
+x = []
+y = []
+z = []
+for i in range(4):
+    name1 = "x" + str(i)    #Monthly Production
+    name1 = "Produce_" + str(i)    #Monthly Production
+    x.append(j.addVar(vtype=GRB.INTEGER, name=name1))
+
+    name2 = "Store_" + str(i)    #Monthly Storage
+    y.append(j.addVar(vtype=GRB.INTEGER, name=name2))
+
+    name3 = "Purchase_" + str(i)    #Monthly Purchase
+    z.append(j.addVar(vtype=GRB.INTEGER, name=name3))
+    
+d = [90, 160, 225, 180]    #Monthly Demand
+
+j.setObjective( quicksum( (35 * x[i]) + (5 * y[i]) + (50 * z[i]) for i in range(4)), GRB.MINIMIZE )
+
+for i in range(4):
+    j.addConstr( x[i] <= 160 )
+    j.addConstr( x[i] >= 0 )
+    j.addConstr( y[i] >= 0 )
+    j.addConstr( z[i] >= 0 )
+    
+    if i == 0:              #Previous month storage (y) doesn't exist.
+        j.addConstr( d[i] == x[i] + z[i] - y[i] )                  #Demand = Production + Purchase - Storage
+    else:
+        j.addConstr( d[i] == x[i] + y[i-1] + z[i] - y[i] )         #Demand = Production + Prev Storage + Purchase - Storage
+            
+j.optimize()
+j.printAttr("x")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
