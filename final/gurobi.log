@@ -1,0 +1,463 @@
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 10:18:35 2018
+
+Academic license - for non-commercial use only
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 10:19:04 2018
+
+Academic license - for non-commercial use only
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 10:22:23 2018
+
+Academic license - for non-commercial use only
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 10:22:34 2018
+
+Academic license - for non-commercial use only
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 10:23:26 2018
+
+Academic license - for non-commercial use only
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 10:23:35 2018
+
+Academic license - for non-commercial use only
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 10:23:58 2018
+
+Academic license - for non-commercial use only
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 10:24:11 2018
+
+Academic license - for non-commercial use only
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 10:24:34 2018
+
+Academic license - for non-commercial use only
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 10:25:26 2018
+
+Academic license - for non-commercial use only
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 10:28:45 2018
+
+Academic license - for non-commercial use only
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 10:33:39 2018
+
+Academic license - for non-commercial use only
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 10:46:23 2018
+
+Academic license - for non-commercial use only
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 10:54:07 2018
+
+Academic license - for non-commercial use only
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 10:54:29 2018
+
+Academic license - for non-commercial use only
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 10:55:03 2018
+
+Academic license - for non-commercial use only
+Optimize a model with 116 rows, 66 columns and 206 nonzeros
+Variable types: 0 continuous, 66 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e-02, 1e+00]
+  Objective range  [4e+02, 6e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e+03, 1e+03]
+Presolve removed 0 rows and 20 columns
+Presolve time: 0.00s
+
+Explored 0 nodes (0 simplex iterations) in 0.01 seconds
+Thread count was 1 (of 4 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 10:56:02 2018
+
+Academic license - for non-commercial use only
+Optimize a model with 61 rows, 66 columns and 151 nonzeros
+Variable types: 0 continuous, 66 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e-02, 1e+00]
+  Objective range  [4e+02, 6e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e+03, 1e+03]
+Presolve removed 0 rows and 24 columns
+Presolve time: 0.00s
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 4 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 10:57:04 2018
+
+Academic license - for non-commercial use only
+Optimize a model with 72 rows, 66 columns and 162 nonzeros
+Variable types: 0 continuous, 66 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e-02, 1e+00]
+  Objective range  [4e+02, 6e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e+03, 1e+03]
+Presolve removed 0 rows and 24 columns
+Presolve time: 0.00s
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 4 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 10:59:34 2018
+
+Academic license - for non-commercial use only
+Optimize a model with 132 rows, 66 columns and 222 nonzeros
+Variable types: 0 continuous, 66 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e-02, 1e+00]
+  Objective range  [4e+02, 6e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e+03, 1e+03]
+Presolve removed 60 rows and 24 columns
+Presolve time: 0.00s
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 4 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 11:00:02 2018
+
+Academic license - for non-commercial use only
+Optimize a model with 176 rows, 66 columns and 266 nonzeros
+Variable types: 0 continuous, 66 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e-02, 1e+00]
+  Objective range  [4e+02, 6e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e+03, 1e+03]
+Presolve removed 60 rows and 20 columns
+Presolve time: 0.00s
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 4 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 11:01:55 2018
+
+Academic license - for non-commercial use only
+Optimize a model with 186 rows, 66 columns and 306 nonzeros
+Variable types: 0 continuous, 66 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e-02, 1e+00]
+  Objective range  [4e+02, 6e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e+03, 1e+03]
+Presolve removed 60 rows and 0 columns
+Presolve time: 0.00s
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 4 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 11:06:57 2018
+
+Academic license - for non-commercial use only
+Optimize a model with 259 rows, 66 columns and 380 nonzeros
+Variable types: 0 continuous, 66 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e-02, 1e+00]
+  Objective range  [4e+02, 6e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e+03, 1e+03]
+Presolve removed 66 rows and 0 columns
+Presolve time: 0.00s
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 4 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 11:09:50 2018
+
+Academic license - for non-commercial use only
+Optimize a model with 260 rows, 66 columns and 384 nonzeros
+Variable types: 0 continuous, 66 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e-02, 1e+00]
+  Objective range  [4e+02, 6e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e+03, 1e+03]
+Presolve removed 66 rows and 0 columns
+Presolve time: 0.00s
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 4 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 11:10:25 2018
+
+Academic license - for non-commercial use only
+Optimize a model with 205 rows, 66 columns and 329 nonzeros
+Variable types: 0 continuous, 66 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e-02, 1e+00]
+  Objective range  [4e+02, 6e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e+03, 1e+03]
+Presolve removed 66 rows and 0 columns
+Presolve time: 0.00s
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 4 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 11:11:57 2018
+
+Academic license - for non-commercial use only
+Optimize a model with 260 rows, 66 columns and 384 nonzeros
+Variable types: 0 continuous, 66 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e-02, 1e+00]
+  Objective range  [4e+02, 6e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e+03, 1e+03]
+Presolve removed 66 rows and 0 columns
+Presolve time: 0.00s
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 4 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 11:14:12 2018
+
+Academic license - for non-commercial use only
+Optimize a model with 260 rows, 66 columns and 384 nonzeros
+Variable types: 0 continuous, 66 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e-02, 1e+00]
+  Objective range  [4e+02, 6e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e+03, 1e+03]
+Presolve removed 66 rows and 0 columns
+Presolve time: 0.00s
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 4 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 11:15:04 2018
+
+Academic license - for non-commercial use only
+Optimize a model with 260 rows, 66 columns and 384 nonzeros
+Variable types: 0 continuous, 66 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e-02, 1e+00]
+  Objective range  [4e+02, 6e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e+03, 1e+03]
+Presolve removed 66 rows and 0 columns
+Presolve time: 0.00s
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 4 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 11:18:01 2018
+
+Academic license - for non-commercial use only
+Optimize a model with 293 rows, 66 columns and 494 nonzeros
+Variable types: 0 continuous, 66 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e-02, 1e+00]
+  Objective range  [4e+02, 6e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e+03, 1e+03]
+Presolve removed 66 rows and 0 columns
+Presolve time: 0.00s
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 4 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 11:20:49 2018
+
+Academic license - for non-commercial use only
+Optimize a model with 233 rows, 66 columns and 434 nonzeros
+Variable types: 0 continuous, 66 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e-02, 1e+00]
+  Objective range  [4e+02, 6e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e+03, 1e+03]
+Presolve removed 66 rows and 0 columns
+Presolve time: 0.00s
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 4 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 11:22:40 2018
+
+Academic license - for non-commercial use only
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 11:23:09 2018
+
+Academic license - for non-commercial use only
+Optimize a model with 222 rows, 66 columns and 390 nonzeros
+Variable types: 0 continuous, 66 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e-02, 1e+00]
+  Objective range  [4e+02, 6e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e+03, 1e+03]
+Presolve removed 66 rows and 0 columns
+Presolve time: 0.00s
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 4 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 11:27:04 2018
+
+Academic license - for non-commercial use only
+Optimize a model with 222 rows, 66 columns and 390 nonzeros
+Variable types: 0 continuous, 66 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-02, 1e+00]
+  Objective range  [4e+02, 6e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e+03, 1e+03]
+Presolve removed 66 rows and 0 columns
+Presolve time: 0.00s
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 4 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 11:30:18 2018
+
+Academic license - for non-commercial use only
+Optimize a model with 222 rows, 66 columns and 390 nonzeros
+Variable types: 0 continuous, 66 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-02, 1e+00]
+  Objective range  [4e+02, 6e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e+03, 1e+03]
+Presolve removed 66 rows and 0 columns
+Presolve time: 0.00s
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 4 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 11:34:15 2018
+
+Academic license - for non-commercial use only
+Optimize a model with 200 rows, 66 columns and 324 nonzeros
+Variable types: 0 continuous, 66 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-02, 1e+00]
+  Objective range  [4e+02, 6e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e+03, 1e+03]
+Presolve removed 66 rows and 0 columns
+Presolve time: 0.00s
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 4 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+
+Gurobi 7.5.2 (linux64, Python) logging started Sun Apr 29 11:35:10 2018
+
+Academic license - for non-commercial use only
+Optimize a model with 380 rows, 126 columns and 624 nonzeros
+Variable types: 0 continuous, 126 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-02, 1e+00]
+  Objective range  [4e+02, 6e+02]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e+03, 1e+03]
+Presolve removed 126 rows and 0 columns
+Presolve time: 0.00s
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 4 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
