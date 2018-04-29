@@ -1,0 +1,25 @@
+#! /usr/bin/python
+
+""" 
+    Final Project
+    Intro to Optimization
+    Spring 2018
+    Patrick Sigourney - pws482
+
+    A server cluster contains 1024 physical disks.
+    When the cluster was constructed, all the disks were new.
+    Each period, a certain percentage of the disks fail and need to be replaced.
+    The replacement disks can either be purchased new or salvaged used from decommisioned servers.
+        New disks are more expensive, but fail less frequently.
+    There is a flat rate charged to send someone to the data center to replace a disk (in addition to the disk cost).
+    
+    If the cluster has a planned lifecycle of 10 periods, as disks fail each period, 
+    should they be replaced with new disks or used disks in order to minimize total cost?
+
+"""
+
+from gurobipy import *
+import numpy
+import random
+from scipy.io import *
+
