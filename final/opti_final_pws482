@@ -23,3 +23,66 @@ import numpy
 import random
 from scipy.io import *
 
+a = Model("DiskReplacement")
+
+n = 10      #Number of time periods
+
+PriceNew = 550    #Price for New disk including $300 labor to replace
+PriceUsed = 550     #Price for Used disk
+
+FailureRateNew = 0.01  #Failure Rate of New disks (% failed per period)
+FailureRateUsed = 0.15  #Failure Rate of Used disks (% failed per period)
+
+ActiveNew = []     #Number of Active New disks each period
+ActiveUsed = []     #Number of Active Used disks each period
+
+FailedNew = []     #Number of Failed New disks each period
+FailedUsed = []     #Number of Failed Used disks each period
+
+ReplacedNew = []     #Number of Replaced New disks each period
+ReplacedUsed = []     #Number of Replaced Used disks each period
+
+for i in range(0,n):
+    varName = "ActiveNew_" + str(i)
+    ActiveNew.append(a.addVar(vtype=GRB.INTEGER, name=varName))
+    varName = "ActiveUsed_" + str(i)
+    ActiveUsed.append(a.addVar(vtype=GRB.INTEGER, name=varName))
+    varName = "FailedNew_" + str(i)
+    FailedNew.append(a.addVar(vtype=GRB.INTEGER, name=varName))
+    varName = "FailedUsed_" + str(i)
+    FailedUsed.append(a.addVar(vtype=GRB.INTEGER, name=varName))
+    varName = "ReplacedNew_" + str(i)
+    ReplacedNew.append(a.addVar(vtype=GRB.INTEGER, name=varName))
+    varName = "ReplacedUsed_" + str(i)
+    ReplacedUsed.append(a.addVar(vtype=GRB.INTEGER, name=varName))
+
+a.setObjective( quicksum( (PriceNew * ReplacedNew[i]) + (PriceUsed * ReplacedUsed[i]) for i in range(n)) , GRB.MINIMIZE)
+    
+print "Size of ActiveNew = ", len(ActiveNew)
+
+for x in ActiveNew:
+    print x
+
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
