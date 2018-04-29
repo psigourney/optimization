@@ -10,7 +10,7 @@
     When the cluster was assembled in period 1, all the disks were new.
     Each period, a certain percentage of the disks fail and need to be replaced.
     The replacement disks can either be purchased new or salvaged used from decommisioned servers.
-        New disks are more expensive, but fail less frequently.
+    New disks are more expensive, but fail less frequently.
     There is a flat rate charged to send someone to the data center to replace a disk (in addition to the disk cost).
     
     If the cluster has a planned lifecycle of 10 periods, as disks fail each period
@@ -28,8 +28,8 @@ LaborCharge = 300   #Labor Charge to replace a disk
 PriceNew = 250 + LaborCharge    #Price for disk replacement using New disk
 PriceUsed = 50 + LaborCharge     #Price for disk replacement using Used disk
 
-FailureRateNew = 0.05  #Failure Rate of New disks (failed per period multiplier)
-FailureRateUsed = 0.20  #Failure Rate of Used disks (failed per period multiplier)
+FailureRateNew = 0.05  #Failure Rate of New disks per period
+FailureRateUsed = 0.20  #Failure Rate of Used disks per period
 
 ActiveNew = []     #Number of Active New disks each period
 ActiveUsed = []     #Number of Active Used disks each period
@@ -43,22 +43,21 @@ ReplacedUsed = []     #Number of Replaced Used disks each period
 
 #Period Variables
 for i in range(n):
-    varName = "varActiveNew_" + str(i)
+    varName = "ActiveNew_" + str(i)
     ActiveNew.append(a.addVar(vtype=GRB.INTEGER, name=varName))
-    varName = "varActiveUsed_" + str(i)
+    varName = "ActiveUsed_" + str(i)
     ActiveUsed.append(a.addVar(vtype=GRB.INTEGER, name=varName))
-    varName = "varFailedNew_" + str(i)
+    varName = "FailedNew_" + str(i)
     FailedNew.append(a.addVar(vtype=GRB.INTEGER, name=varName))
-    varName = "varFailedUsed_" + str(i)
+    varName = "FailedUsed_" + str(i)
     FailedUsed.append(a.addVar(vtype=GRB.INTEGER, name=varName))
-    varName = "varReplacedNew_" + str(i)
+    varName = "ReplacedNew_" + str(i)
     ReplacedNew.append(a.addVar(vtype=GRB.INTEGER, name=varName))
-    varName = "varReplacedUsed_" + str(i)
+    varName = "ReplacedUsed_" + str(i)
     ReplacedUsed.append(a.addVar(vtype=GRB.INTEGER, name=varName))
 
 
-#Global Period Constraints
-    # Number of drives always between 0 and 1024
+    #Global Period Constraints
     a.addConstr( ActiveNew[i] >= 0 )
     a.addConstr( ActiveUsed[i] >= 0 )
     a.addConstr( FailedNew[i] >= 0 )
@@ -66,21 +65,14 @@ for i in range(n):
     a.addConstr( ReplacedNew[i] >= 0 )
     a.addConstr( ReplacedUsed[i] >= 0 )
     
-    a.addConstr( ActiveNew[i] <= 1024 )
-    a.addConstr( ActiveUsed[i] <= 1024 )
-    a.addConstr( FailedNew[i] <= 1024 )
-    a.addConstr( FailedUsed[i] <= 1024 )
-    a.addConstr( ReplacedNew[i] <= 1024 )
-    a.addConstr( ReplacedUsed[i] <= 1024 )
+    a.addConstr( ActiveNew[i] + ActiveUsed[i] == 1024 )                                 #Total active disks always equals 1024
     
-    a.addConstr( ActiveNew[i] + ActiveUsed[i] == 1024 ) #Total active disks always equals 1024
-    
-    a.addConstr( FailedNew[i] + FailedUsed[i] == ReplacedNew[i] + ReplacedUsed[i] ) #Replacements == Failures
+    a.addConstr( ReplacedNew[i] + ReplacedUsed[i] == FailedNew[i] + FailedUsed[i] )     #Replacements == Failures
 
     
-#Period 1 Starting Values
-a.addConstr( ActiveNew[0] == 1024 )
-a.addConstr( ActiveUsed[0] == 0 )
+#Period 0 Starting Values
+a.addConstr( ActiveNew[0] == 1024 )     #Start with all disks being New
+a.addConstr( ActiveUsed[0] == 0 )       #Unnecessary constraints?
 a.addConstr( FailedNew[0] == 0 )
 a.addConstr( FailedUsed[0] == 0 )
 a.addConstr( ReplacedNew[0] == 0 )
@@ -88,18 +80,18 @@ a.addConstr( ReplacedUsed[0] == 0 )
     
     
 #Subsequent Period Constraints
-for i in range(1,n):    
-
-    a.addConstr( FailedNew[i] == ActiveNew[i-1] * FailureRateNew )      #Period failures of New disks
-    a.addConstr( FailedUsed[i] == ActiveUsed[i-1] * FailureRateUsed )   #Period failures of Used disks
+for i in range(1,n):
+    a.addConstr( FailedNew[i] == ActiveNew[i-1] * FailureRateNew )                      #Period failures of New disks
+    a.addConstr( FailedUsed[i] == ActiveUsed[i-1] * FailureRateUsed )                   #Period failures of Used disks
     
-    a.addConstr( ActiveNew[i] == ActiveNew[i-1] - FailedNew[i] + ReplacedNew[i] ) #Period source and sink for Active New disks
-    a.addConstr( ActiveUsed[i] == ActiveUsed[i-1] - FailedUsed[i] + ReplacedUsed[i] ) #Period source and sink for Active Used disks
-
-    
+    a.addConstr( ActiveNew[i] == ActiveNew[i-1] - FailedNew[i] + ReplacedNew[i] )       #Period source and sink for Active New disks
+    a.addConstr( ActiveUsed[i] == ActiveUsed[i-1] - FailedUsed[i] + ReplacedUsed[i] )   #Period source and sink for Active Used disks
 
     
 a.setObjective( quicksum( (PriceNew * ReplacedNew[i]) + (PriceUsed * ReplacedUsed[i]) for i in range(n)) , GRB.MINIMIZE)
 
 a.optimize()
+
+
+
 
