@@ -56,6 +56,8 @@ for i in range(n):
     varName = "ReplacedUsed_" + str(i)
     ReplacedUsed.append(a.addVar(vtype=GRB.INTEGER, name=varName))
 
+    #The only variables are the replaced new and replaced used.
+    #Everything else can be derived from those values.
 
     #Global Period Constraints
     a.addConstr( ActiveNew[i] >= 0 )
