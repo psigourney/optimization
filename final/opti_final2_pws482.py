@@ -15,8 +15,6 @@ a = Model("RollupCompletion")
 
 MinsToCompletion = a.addVar(vtype=GRB.CONTINUOUS, name="MinsToCompletion")
 
-a.setObjective(MinsToCompletion, GRB.MINIMIZE)
-
 #Completion time of MIDs
 MID15442 = a.addVar(vtype=GRB.CONTINUOUS, name="MID15442"
 MID24708 = a.addVar(vtype=GRB.CONTINUOUS, name="MID24708"
@@ -43,85 +41,25 @@ MID24670 = 0 #Currently running
 MID15430 >= MID15542 + 3.45
 MID24709 >= MID24708 + 0.72
 MID15462 >= MID15442 + 3.45
-MID25012 >= MID24709 + 
-MID16047
-MID24671
-MID23185
-MID23184
-MID16050
-MID24672
-MID22108
-MID22357
-MID15644
+MID25012 >= MID24709 + 0.80
+MID16047 >= MID15430 + 3.97
+MID24671 >= MID15462 + 8.70
+MID24671 >= MID24670 + 5.37
+MID23185 >= MID15462 + 8.70
+MID23184 >= MID15462 + 8.70
+MID16050 >= MID16047 + 4.35
+MID24672 >= MID24671 + 5.67
+MID22108 >= MID16050 + 3.93
+MID22357 >= MID16047 + 4.35
+MID22357 >= MID16050 + 3.93
+MID22357 >= MID22108 + 3.57
+MID15644 >= MID22357 + 2.30
+MID15644 >= MID23184 + 1.37
+MID15644 >= MID23185 + 6.38
+MID15644 >= MID24672 + 6.20
 MinsToCompletion = MID15644 + 0.03
 
-# 16 MIDs
-# 19 dependency constraints
-
-ActiveNew = []      # Number of Active New disks each period
-ActiveUsed = []     # Number of Active Used disks each period
-
-FailedNew = []      # Number of Failed New disks each period
-FailedUsed = []     # Number of Failed Used disks each period
-
-ReplacedNew = []     # Number of Replaced New disks each period
-ReplacedUsed = []    # Number of Replaced Used disks each period
-
-
-# Period Variables
-for i in range(n):
-    varName = "ActiveNew_" + str(i)
-    ActiveNew.append(a.addVar(vtype=GRB.INTEGER, name=varName))
-    varName = "ActiveUsed_" + str(i)
-    ActiveUsed.append(a.addVar(vtype=GRB.INTEGER, name=varName))
-    varName = "FailedNew_" + str(i)
-    FailedNew.append(a.addVar(vtype=GRB.INTEGER, name=varName))
-    varName = "FailedUsed_" + str(i)
-    FailedUsed.append(a.addVar(vtype=GRB.INTEGER, name=varName))
-
-#    ActiveNew.append(0)
-#    ActiveUsed.append(0)
-#    FailedNew.append(0)
-#    FailedUsed.append(0)
-    
-    varName = "ReplacedNew_" + str(i)
-    ReplacedNew.append(a.addVar(vtype=GRB.INTEGER, name=varName))
-    varName = "ReplacedUsed_" + str(i)
-    ReplacedUsed.append(a.addVar(vtype=GRB.INTEGER, name=varName))
-
-
-    # Global Period Constraints
-    a.addConstr( ActiveNew[i] >= 0 )
-    a.addConstr( ActiveUsed[i] >= 0 )
-    a.addConstr( FailedNew[i] >= 0 )
-    a.addConstr( FailedUsed[i] >= 0 )
-    a.addConstr( ReplacedNew[i] >= 0 )
-    a.addConstr( ReplacedUsed[i] >= 0 )
-    
-    a.addConstr( ActiveNew[i] + ActiveUsed[i] == 1024 )                                 # Total active disks always equals 1024
-    
-    a.addConstr( ReplacedNew[i] + ReplacedUsed[i] == FailedNew[i] + FailedUsed[i] )     # Replacements == Failures
-
-    
-# Period 0 Starting Values
-a.addConstr( ActiveNew[0] == 1024 )     # Start with all disks being New
-a.addConstr( ActiveUsed[0] == 0 )       # Unnecessary constraints?
-a.addConstr( FailedNew[0] == 0 )
-a.addConstr( FailedUsed[0] == 0 )
-a.addConstr( ReplacedNew[0] == 0 )
-a.addConstr( ReplacedUsed[0] == 0 )
-    
-    
-# Subsequent Period Constraints
-for i in range(1,n):
-    a.addConstr( FailedNew[i] == ActiveNew[i-1] * FailureRateNew )                      # Period failures of New disks
-    a.addConstr( FailedUsed[i] == ActiveUsed[i-1] * FailureRateUsed )                   # Period failures of Used disks
-    
-    a.addConstr( ActiveNew[i] == ActiveNew[i-1] - FailedNew[i] + ReplacedNew[i] )       # Previous Active New Disks - Failed + Replaced = Current Active New Disks
-    a.addConstr( ActiveUsed[i] == ActiveUsed[i-1] - FailedUsed[i] + ReplacedUsed[i] )   # Previous Active Used Disks - Failed + Replaced = Current Active Used Disks
-
-    
-a.setObjective(  , GRB.MINIMIZE)
+a.setObjective(MinsToCompletion, GRB.MINIMIZE)
 
 a.optimize()
 
